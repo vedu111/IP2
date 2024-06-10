@@ -57,7 +57,6 @@ document.getElementById('checkPercentage').addEventListener('click', function() 
     }
 });
 
-
 document.getElementById('feez&buzz').addEventListener('click', function(){
     let num =parseInt(prompt("Enter the number:"), 10);
 
@@ -74,3 +73,22 @@ document.getElementById('feez&buzz').addEventListener('click', function(){
         alert(num);
     }
 });
+
+document.getElementById('table').addEventListener('click', function() {
+    let num = parseInt(prompt("संख्या प्रविष्ट करा:"), 10);
+    if (isNaN(num)) {
+        alert("कृपया वैध संख्या प्रविष्ट करा.");
+        return;
+    }
+
+    let tableOutput = document.getElementById('tableOutput');
+    tableOutput.innerHTML = `<h2>गुणाकार तक्ता ${num}</h2>`;
+    
+    for (let i = 0; i < 10; i++) {
+        let result = `${num} * ${i + 1} = ${num * (i + 1)}`;
+        let p = document.createElement('p');
+        p.textContent = result;
+        tableOutput.appendChild(p);
+    }
+});
+
