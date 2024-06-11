@@ -57,23 +57,6 @@ document.getElementById('checkPercentage').addEventListener('click', function() 
     }
 });
 
-document.getElementById('feez&buzz').addEventListener('click', function(){
-    let num =parseInt(prompt("Enter the number:"), 10);
-
-    if(num%3==0 && num%5==0){
-        alert("Feez and buzz!");
-    }
-    else if(num%3==0){
-        alert("Feez");
-    }
-    else if(num%5==0){
-        alert("Buzz");
-    }
-    else{
-        alert(num);
-    }
-});
-
 document.getElementById('table').addEventListener('click', function() {
     let num = parseInt(prompt("संख्या प्रविष्ट करा:"), 10);
     if (isNaN(num)) {
@@ -90,5 +73,67 @@ document.getElementById('table').addEventListener('click', function() {
         p.textContent = result;
         tableOutput.appendChild(p);
     }
+});
+
+document.getElementById('fibonacci').addEventListener('click', function() {
+    let fibonacciOutput = document.getElementById('fibonacciOutput');
+    fibonacciOutput.innerHTML = '<h2>पहिल्या 10 फिबोनाची संख्यां</h2>';
+
+    let a = 0, b = 1;
+    for (let i = 0; i < 10; i++) {
+        let p = document.createElement('p');
+        p.textContent = a;
+        fibonacciOutput.appendChild(p);
+
+        let next = a + b;
+        a = b;
+        b = next;
+    }
+});
+
+document.getElementById('guessNumberGame').addEventListener('click', function() {
+    let total_num = [];
+    let total = Math.floor(Math.random() * 100);
+    
+    for (let i = 0; i < total; i++) {
+        total_num[i] = Math.floor(Math.random() * 100);
+    }
+
+    let guessNumberOutput = document.getElementById('guessNumberOutput');
+    guessNumberOutput.innerHTML = `<h2>Generated numbers: ${total_num.join(', ')}</h2>`;
+    document.getElementById('makeGuess').style.display = 'inline';
+
+    let attempts = 10;
+    let found = false;
+    let attemptCount = 0;
+
+    document.getElementById('makeGuess').addEventListener('click', function() {
+        if (attemptCount >= attempts) {
+            alert("No more attempts left.");
+            return;
+        }
+
+        let temp = parseInt(document.getElementById('guessInput').value, 10);
+        if (isNaN(temp)) {
+            alert("कृपया वैध संख्या प्रविष्ट करा.");
+            return;
+        }
+
+        attemptCount++;
+        console.log(`Attempt ${attemptCount}: Guessing number ${temp}`);
+        if (total_num.includes(temp)) {
+            alert(`Number found! Guess: ${temp}`);
+            console.log(`Number found! Guess: ${temp}`);
+            found = true;
+            return;
+        } else {
+            alert(`Attempt ${attemptCount}: Number not found. Try again.`);
+        }
+
+        if (attemptCount >= attempts && !found) {
+            alert("Number not found in the given attempts.");
+            console.log("Number not found in the given attempts.");
+        }
+    });
 });
 
